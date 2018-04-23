@@ -4,6 +4,12 @@ import matplotlib.pyplot as plt
 import plotly.offline as py
 import plotly.graph_objs as go
 
+""" 04-22-18 - David j Bettinardi - SepKinetics software
+This script (so far) imports .csv kinetic data from the Olis CLARiTY
+Spectrophotometer and outputs a 3-dimentional visualizerself.
+Three datastructure approaches were attempted, current approach
+is through -m pandas"""
+
 
 '''call in terminal with $ python importing.py filename.csv'''
 
@@ -11,11 +17,11 @@ import plotly.graph_objs as go
 # pandas approach
 def main():
     filename = sys.argv[1]
-    df = pd.read_csv(filename, header = None)
+    df = pd.read_csv(filename, index_col=0, header = 0)
     #print df.head(n=1)
     #print df
 
-    df.iloc[0,0] = 'nm'      # sets first value to wavelength (nm)
+    #df.iloc[0,0] = 'nm'      # sets first value to wavelength (nm)
     #wavelength = df.ix[:]['0']      # designates first column as wavelength
     #timepoint = [float(i) for i in list(df)]   # set dictionary titles = float of timepoints
 
@@ -32,7 +38,7 @@ def two_dplot():
     print x,y
     plt.plot(x,y)
     plt.show()
-two_dplot()
+#two_dplot()
 #print df.iloc[0,1:]
 #z = df.iloc[0,1:]
 #z = df.head(n=1)
@@ -43,6 +49,7 @@ two_dplot()
 def three_dplot():
     data = [go.Surface(z=df.as_matrix(), colorscale='Viridis')]
     #data = [go.Surface(x=x, y=y, z=z)]
+    #print data
     fig = go.Figure(data=data)
     py.plot(fig)
 three_dplot()
