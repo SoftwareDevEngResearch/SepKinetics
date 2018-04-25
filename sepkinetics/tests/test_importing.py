@@ -1,5 +1,5 @@
 """Test scipts for importing.py"""
-from sepkinetics.importing import main, two_dplot, three_dplot
+from .sepkinetics import importing
 
 def test_main():
     df = main('kintest.csv')
