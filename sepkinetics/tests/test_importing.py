@@ -2,7 +2,7 @@
 from sepkinetics.importing import main, two_dplot, three_dplot
 
 def test_main():
-    df = main()
+    df = main('kintest.csv')
     assert 0 < df.iloc[0,0] < 1
 
     timepoints = [float(i) for i in list(df)]
