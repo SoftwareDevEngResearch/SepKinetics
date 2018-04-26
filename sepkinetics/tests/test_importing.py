@@ -1,6 +1,6 @@
 """Test scipts for importing.py"""
 
-from .. import importing as im
+from sepkinetics import importing as im
 
 def test_main():
     df = im.main('kintest.csv')

@@ -29,7 +29,7 @@ uses dataframes in -m pandas"""
 '''call in terminal using $ python importing.py filename.csv'''
 
 
-filename = 'kintest.csv'     # hardcoded for testing; overidden in __main__
+filename = 'scan10.csv'     # hardcoded for testing; overidden in __main__
 
 
 # pandas approach [third try]
@@ -48,7 +48,6 @@ def two_dplot():
     plt.plot(wavelength,absorb)
     return plt.show()
 two_dplot()
-
 
 
 def three_dplot():
