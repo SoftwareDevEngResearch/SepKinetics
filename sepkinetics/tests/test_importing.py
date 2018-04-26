@@ -1,9 +1,9 @@
 """Test scipts for importing.py"""
 #from sepkinetics.importing import main, two_dplot, three_dplot
-from .. importing import main, two_dplot, three_dplot
+from .. import importing as im
 
 def test_main():
-    df = main('kintest.csv')
+    df = im.main('kintest.csv')
     assert 0 < df.iloc[0,0] < 1
 
     timepoints = [float(i) for i in list(df)]
