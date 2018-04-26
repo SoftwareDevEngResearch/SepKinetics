@@ -31,12 +31,14 @@ filename = 'kintest.csv'     # hardcoded for testing; overidden in __main__
 
 # pandas approach [third try]
 def main(filename):
+    """creates dataframe with top row and first column as headers"""
     df = pd.read_csv(filename, index_col=0, header = 0) # set column 1 as index; first row as header
+
     return df
 
 
-# Make an overlapping 2D plot of wavelength vs. kinetics @ all timepoints
 def two_dplot():
+    """Make an overlapping 2D plot of wavelength vs. kinetics @ all timepoints"""
     #filename = sys.argv[1]          # reads in again; MUST FIX
     df = pd.read_csv(filename, header = 0)      # reads in again; MUST FIX
     wavelength = df.iloc[1:,0]      # set firts column as wavelength
@@ -46,8 +48,9 @@ def two_dplot():
 two_dplot()
 
 
-# Make a 3D surface plot with histogram
+
 def three_dplot():
+    """Make a 3D surface plot with histogram"""
     #filename = sys.argv[1]          # reads in again; MUST FIX
     df = pd.read_csv(filename, index_col=0, header = 0)     # reads in again; MUST FIX
     data = [go.Surface(z=df.as_matrix(), colorscale='Viridis')]     # transform to matrix for surface plot
