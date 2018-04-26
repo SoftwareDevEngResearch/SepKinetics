@@ -5,14 +5,17 @@ import plotly.offline as py
 import plotly.graph_objs as go
 
 '''# TODO:
--comment the code more  DONE
--use argv in __main__ or hardcode .csv for testing? DONE
+-add more tests
+-add gitignore file
+-add google style comments to code
+-use argv in __main__ or hardcode .csv for testing?
 -import .xlsx instead of .csv (comes from clarity as .xlsx)
 -save 3D plots as HTML
 -fix double importing
 -fix 3D y-axis
 -add axis labels
 -add monocolor histogram for 2D plot
+-add peak finding function
 -add plotting series of histograms (see PythonProject folder in chrome)
 '''
 
@@ -33,7 +36,6 @@ filename = 'kintest.csv'     # hardcoded for testing; overidden in __main__
 def main(filename):
     """creates dataframe with top row and first column as headers"""
     df = pd.read_csv(filename, index_col=0, header = 0) # set column 1 as index; first row as header
-
     return df
 
 
