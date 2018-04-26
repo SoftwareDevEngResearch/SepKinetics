@@ -34,30 +34,30 @@ filename = 'scan10.csv'     # hardcoded for testing; overidden in __main__
 
 # pandas approach [third try]
 def main(filename):
-    """creates dataframe with top row and first column as headers"""
+    """Creates dataframe with top row and first column as headers"""
     df = pd.read_csv(filename, index_col=0, header = 0) # set column 1 as index; first row as header
     return df
 
 
 def two_dplot():
-    """Make an overlapping 2D plot of wavelength vs. kinetics @ all timepoints"""
+    """Makes an overlapping 2D plot of wavelength vs. kinetics @ all timepoints"""
     #filename = sys.argv[1]          # reads in again; MUST FIX
     df = pd.read_csv(filename, header = 0)      # reads in again; MUST FIX
     wavelength = df.iloc[1:,0]      # set firts column as wavelength
     absorb = df.iloc[1:,1:]     # set column as absorbances
     plt.plot(wavelength,absorb)
     return plt.show()
-two_dplot()
+#two_dplot()
 
 
 def three_dplot():
-    """Make a 3D surface plot with histogram"""
+    """Makes a 3D surface plot"""
     #filename = sys.argv[1]          # reads in again; MUST FIX
     df = pd.read_csv(filename, index_col=0, header = 0)     # reads in again; MUST FIX
     data = [go.Surface(z=df.as_matrix(), colorscale='Viridis')]     # transform to matrix for surface plot
     fig = go.Figure(data=data)      # make figure
     return py.plot(fig)             # plot figure
-three_dplot()
+#three_dplot()
 
 
 if __name__ == '__main__':
