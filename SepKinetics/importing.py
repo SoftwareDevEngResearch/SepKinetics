@@ -43,7 +43,7 @@ def two_dplot():
     absorb = df.iloc[1:,1:]     # set column as absorbances
     plt.plot(wavelength,absorb)
     return plt.show()
-#two_dplot()
+two_dplot()
 
 
 # Make a 3D surface plot with histogram
@@ -53,7 +53,7 @@ def three_dplot():
     data = [go.Surface(z=df.as_matrix(), colorscale='Viridis')]     # transform to matrix for surface plot
     fig = go.Figure(data=data)      # make figure
     return py.plot(fig)             # plot figure
-#three_dplot()
+three_dplot()
 
 
 if __name__ == '__main__':
