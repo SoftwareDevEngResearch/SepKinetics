@@ -26,7 +26,7 @@ uses dataframes in -m pandas"""
 '''call in terminal using $ python importing.py filename.csv'''
 
 
-#filename = 'kintest.csv'     # hardcoded for testing; overidden in __main__
+filename = 'kintest.csv'     # hardcoded for testing; overidden in __main__
 
 
 # pandas approach [third try]
@@ -37,23 +37,23 @@ def main(filename):
 
 # Make an overlapping 2D plot of wavelength vs. kinetics @ all timepoints
 def two_dplot():
-    filename = sys.argv[1]          # reads in again; MUST FIX
+    #filename = sys.argv[1]          # reads in again; MUST FIX
     df = pd.read_csv(filename, header = 0)      # reads in again; MUST FIX
     wavelength = df.iloc[1:,0]      # set firts column as wavelength
     absorb = df.iloc[1:,1:]     # set column as absorbances
     plt.plot(wavelength,absorb)
     return plt.show()
-two_dplot()
+#two_dplot()
 
 
 # Make a 3D surface plot with histogram
 def three_dplot():
-    filename = sys.argv[1]          # reads in again; MUST FIX
+    #filename = sys.argv[1]          # reads in again; MUST FIX
     df = pd.read_csv(filename, index_col=0, header = 0)     # reads in again; MUST FIX
     data = [go.Surface(z=df.as_matrix(), colorscale='Viridis')]     # transform to matrix for surface plot
     fig = go.Figure(data=data)      # make figure
     return py.plot(fig)             # plot figure
-three_dplot()
+#three_dplot()
 
 
 if __name__ == '__main__':
