@@ -31,9 +31,9 @@ uses dataframes in -m pandas"""
 
 
 # pandas approach [third try]
-def main(filename):
+def main(file):
     """Creates dataframe with top row and first column as headers"""
-    df = pd.read_csv(filename, header = 0) # first row as header
+    df = pd.read_csv(file, header = 0) # first row as header
     return df
 
 
