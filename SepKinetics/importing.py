@@ -42,7 +42,7 @@ def two_dplot():
     try:        # duck typing to allow test_function exceptions
         filename = sys.argv[1]
     except:
-        pass
+        filename = 'kintest.csv'
     df = main(filename)
     df.set_index('0', inplace = True)   #reset index as time-series
     df.plot(legend=False, colormap = 'coolwarm')
@@ -55,7 +55,7 @@ def three_dplot():
     try:        # duck typing to allow test_function exceptions
         filename = sys.argv[1]
     except:
-        pass
+        filename ='kintest.csv'
     df = main(filename)
     df2 = df.set_index('0')
 
