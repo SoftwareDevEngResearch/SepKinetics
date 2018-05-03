@@ -29,6 +29,7 @@ uses dataframes in -m pandas"""
 
 '''call in terminal using $ python importing.py filename.csv'''
 
+filename = 'kintest.csv'    # for test_functions, overridden in main
 
 # pandas approach [third try]
 def main(file):
@@ -47,7 +48,7 @@ def two_dplot():
     df.set_index('0', inplace = True)   #reset index as time-series
     df.plot(legend=False, colormap = 'coolwarm')
     return plt.show()
-two_dplot()
+#two_dplot()
 
 
 def three_dplot():
