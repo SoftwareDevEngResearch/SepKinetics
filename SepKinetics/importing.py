@@ -3,16 +3,18 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import plotly.offline as py
 import plotly.graph_objs as go
+import peakutils
 
 '''# TODO:
--comment the code more  DONE
--use argv in __main__ or hardcode .csv for testing? DONE
--import .xlsx instead of .csv (comes from clarity as .xlsx)
--save 3D plots as HTML
--fix double importing
+-add series_peakshow() fn
+-check Martin's disseration for deconvolution
+-add more tests
+-add google style comments to code
+-import .xlsx instead of .csv (comes from clarity as .xlsx)?
+-save 3D plots?
+-fix peakfinding x-axis
+-add 2D peak labels
 -fix 3D y-axis
--add axis labels
--add monocolor histogram for 2D plot
 -add plotting series of histograms (see PythonProject folder in chrome)
 '''
 
@@ -22,40 +24,68 @@ spectrophotometer and outputs 2D and 3D visualizers.
 Three datastructure approaches were attempted; current approach
 uses dataframes in -m pandas"""
 
-
 '''call in terminal using $ python importing.py filename.csv'''
 
-
-filename = 'kintest.csv'     # hardcoded for testing; overidden in __main__
-
+#filename = 'kintest.csv'    # for test_functions, overridden in main
 
 # pandas approach [third try]
-def main(filename):
-    df = pd.read_csv(filename, index_col=0, header = 0) # set column 1 as index; first row as header
+def main(file):
+    """Creates dataframe with top row as headers"""
+    try:
+        return df
+    except:
+        df = pd.read_csv(file, header = 0) # first row as header
     return df
 
 
-# Make an overlapping 2D plot of wavelength vs. kinetics @ all timepoints
-def two_dplot():
-    #filename = sys.argv[1]          # reads in again; MUST FIX
-    df = pd.read_csv(filename, header = 0)      # reads in again; MUST FIX
-    wavelength = df.iloc[1:,0]      # set firts column as wavelength
-    absorb = df.iloc[1:,1:]     # set column as absorbances
-    plt.plot(wavelength,absorb)
-    return plt.show()
-#two_dplot()
+def two_dplot(specdata):
+    """Makes an overlapping 2D plot of wavelength vs. kinetics @ all timepoints"""
+#    try:        # duck typing to allow test_function exceptions
+#        specdata = sys.argv[1]
+#    except:
+#        pass
+    if not isinstance(specdata, pd.DataFrame):
+        specdata = main(specdata)
+        specdata.set_index('0', inplace = True)   #reset index as time-series
+    else:
+        pass
+    return specdata.plot(legend=False, colormap = 'coolwarm')
 
 
-# Make a 3D surface plot with histogram
-def three_dplot():
-    #filename = sys.argv[1]          # reads in again; MUST FIX
-    df = pd.read_csv(filename, index_col=0, header = 0)     # reads in again; MUST FIX
-    data = [go.Surface(z=df.as_matrix(), colorscale='Viridis')]     # transform to matrix for surface plot
-    fig = go.Figure(data=data)      # make figure
-    return py.plot(fig)             # plot figure
-#three_dplot()
+def three_dplot(specdata):
+    """Makes a 3D surface plot"""
+#    try:        # duck typing to allow test_function exceptions
+#        filename = sys.argv[1]
+#    except:
+#        pass
+    df = main(specdata)
+    df2 = df.set_index('0')
+
+    y = df.iloc[:,0].tolist()   # attempt to overwrite y-axis
+
+    '''Working plotter, wrong y-axis!'''    # MUST FIX
+    data = [go.Surface(z=df2.as_matrix(), y=y, colorscale='Viridis')]     # transform to matrix for surface plot
+
+    layout = go.Layout(
+                    scene = dict(
+                    xaxis = dict(
+                        title='Time (s)'),
+                    yaxis = dict(
+                        title='Wavelength (nm)'),
+                    zaxis = dict(
+                        title='Abs'),),
+                    width=700,
+                  )
+    fig = go.Figure(data=data, layout=layout)
+    return py.plot(fig)
 
 
 if __name__ == '__main__':
+    try:
+        specdata = sys.argv[1]
+    except:
+        raise ValueError('Specify the .csv you wish to import')
 
-    filename = sys.argv[1]
+    two_dplot(specdata)
+    #three_dplot(specdata)
+    plt.show()
